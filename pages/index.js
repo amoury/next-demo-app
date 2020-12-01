@@ -1,8 +1,9 @@
 import Head from 'next/head'
 import Link from  'next/link';
+import { withTranslation } from '../i18n'
 import styles from '../styles/Home.module.css'
 
-export default function Home() {
+const Home = ({ t }) => {
   return (
     <div className={styles.container}>
       <Head>
@@ -12,7 +13,7 @@ export default function Home() {
 
       <main className={styles.main}>
         <h1 className={styles.title}>
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
+          {t('welcome_to_nextjs')}
         </h1>
 
         <Link href="/planets">Planets</Link>
@@ -66,3 +67,9 @@ export default function Home() {
     </div>
   )
 }
+
+Home.getInitialProps = async () => ({
+  namespacesRequired: ['common']
+})
+
+export default withTranslation('common')(Home)
