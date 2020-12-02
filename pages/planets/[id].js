@@ -9,7 +9,7 @@ export async function getStaticPaths() {
   const { results } = data;
 
   const paths = results.map((res, i) => `/planets/${Number(i) + 1}`);
-  return { paths, fallback: false }
+  return { paths, fallback: true }
 }
 
 export async function getStaticProps({ params }) {

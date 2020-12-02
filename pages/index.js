@@ -1,18 +1,22 @@
 import Head from 'next/head'
 import Link from  'next/link';
 import styles from '../styles/Home.module.css'
+import useLocale from '../hooks/useLocale';
 
-export default function Home() {
+function Home({locale}) {
+  console.log('locale ', locale);
+  const {t, lang } = useLocale();
+
   return (
     <div className={styles.container}>
-      <Head>
-        <title>Create Next App</title>
+      <Head lang={lang} dir={lang === 'ar' ? 'rtl' : 'ltr'}>
+        <title>hello</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
       <main className={styles.main}>
         <h1 className={styles.title}>
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
+          {t('welcome_to_nextjs', {name: 'Ansar'})}
         </h1>
 
         <Link href="/planets">Planets</Link>
@@ -66,3 +70,13 @@ export default function Home() {
     </div>
   )
 }
+
+export async function getStaticProps(context) {
+  return {
+    props: {
+      locale: context.locale
+    }
+  }
+}
+
+export default Home;
